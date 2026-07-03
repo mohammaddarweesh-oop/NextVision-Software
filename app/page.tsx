@@ -1,18 +1,16 @@
-import nextDynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 
-export const dynamic = "force-dynamic";
-
-const About = nextDynamic(() => import("@/components/About"), { ssr: true });
-const Services = nextDynamic(() => import("@/components/Services"), { ssr: true });
-const TechStack = nextDynamic(() => import("@/components/TechStack"), { ssr: true });
-const Packages = nextDynamic(() => import("@/components/Packages"), { ssr: true });
-const FAQ = nextDynamic(() => import("@/components/FAQ"), { ssr: true });
-const Testimonials = nextDynamic(() => import("@/components/Testimonials"), { ssr: true });
-const Contact = nextDynamic(() => import("@/components/Contact"), { ssr: true });
-const Footer = nextDynamic(() => import("@/components/Footer"), { ssr: true });
+const About = dynamic(() => import("@/components/About"), { ssr: true });
+const Services = dynamic(() => import("@/components/Services"), { ssr: true });
+const TechStack = dynamic(() => import("@/components/TechStack"), { ssr: true });
+const Packages = dynamic(() => import("@/components/Packages"), { ssr: true });
+const FAQ = dynamic(() => import("@/components/FAQ"), { ssr: true });
+const Testimonials = dynamic(() => import("@/components/Testimonials"), { ssr: true });
+const Contact = dynamic(() => import("@/components/Contact"), { ssr: true });
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
 
 export default function Home() {
   return (
