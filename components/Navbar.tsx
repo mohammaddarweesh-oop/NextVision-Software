@@ -81,22 +81,20 @@ export default function Navbar() {
         >
           <div
             style={{
-              background: "rgba(255,255,255,0.06)",
               borderRadius: 8,
-              padding: "4px 8px",
               display: "flex",
               alignItems: "center",
             }}
           >
             <img
-              src="/nextsotwarelogo.png"
+              src="/NextVisionlogo.png"
               alt=""
               width={92}
               height={84}
-              style={{ height: 28, width: "auto", cursor: "pointer" }}
+              style={{ height:60, width: "auto", cursor: "pointer" }}
             />
           </div>
-          <span style={{ fontSize: "1.1rem", fontWeight: 800, letterSpacing: "-0.02em" }}>
+          <span style={{ fontSize: "1.1rem", fontWeight: 800, letterSpacing: "-0.02em", direction: "ltr", unicodeBidi: "isolate" }}>
             Next<span className="gradient-text">Vision</span>
           </span>
         </ScrollLink>

@@ -38,7 +38,7 @@ export default function Footer() {
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div
             style={{
-              background: "rgba(255,255,255,0.06)",
+              background: "rgba(255, 255, 255, 0)",
               borderRadius: 7,
               padding: "3px 6px",
               display: "flex",
@@ -50,10 +50,10 @@ export default function Footer() {
               alt=""
               width={92}
               height={84}
-              style={{ height: 24, width: "auto" }}
+              style={{ height: 72, width: "auto" }}
             />
           </div>
-          <span style={{ fontWeight: 700 }}>
+          <span style={{ fontWeight: 700, direction: "ltr", unicodeBidi: "isolate" }}>
             NextVision <span className="gradient-text">Software</span>
           </span>
         </div>

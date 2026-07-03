@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState, useEffect } from "react";
+import { useActionState, useState, useEffect, useRef } from "react";
 import { submitContact, type ContactFormState } from "@/lib/actions";
 import { useTranslation } from "@/lib/i18n";
 
@@ -10,6 +10,7 @@ export default function Contact() {
   const { t } = useTranslation();
   const [state, formAction, pending] = useActionState(submitContact, initialState);
   const [message, setMessage] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -18,6 +19,13 @@ export default function Contact() {
     window.addEventListener("selectPackage", handler);
     return () => window.removeEventListener("selectPackage", handler);
   }, []);
+
+  useEffect(() => {
+    if (state.success) {
+      setMessage("");
+      formRef.current?.reset();
+    }
+  }, [state.success]);
 
   return (
     <section id="contact" style={{ padding: "100px 24px", position: "relative" }}>
@@ -33,6 +41,7 @@ export default function Contact() {
       />
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 80, alignItems: "start" }}>
+          
           <div>
             <div
               style={{
@@ -68,11 +77,11 @@ export default function Contact() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
               {[
-                { icon: "\uD83D\uDCE7", labelKey: "email_label", value: "engmohammaddarweesh@gmail.com" },
-                { icon: "\uD83D\uDCDE", labelKey: "call_label", value: "+962786023618" },
-                { icon: "\uD83D\uDCCD", labelKey: "location_label", value: "Amman, Jordan" },
+                { icon: "📧", labelKey: "email_label", value: "engmohammaddarweesh@gmail.com" },
+                { icon: "📞", labelKey: "call_label", value: "962786023618" },
+                { icon: "📍", labelKey: "location_label", value: "Amman, Jordan" },
               ].map(({ icon, labelKey, value }) => {
-                const href = labelKey === "email_label" ? `mailto:${value}` : labelKey === "call_label" ? `tel:${value}` : null;
+                const href = labelKey === "email_label" ? `mailto:${value}` : labelKey === "call_label" ? `tel:+${value}` : null;
                 return (
                 <div key={labelKey} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
                   <div
@@ -115,6 +124,7 @@ export default function Contact() {
           </div>
 
           <form
+            ref={formRef}
             action={formAction}
             style={{
               background: "rgba(255,255,255,0.02)",
@@ -125,99 +135,35 @@ export default function Contact() {
           >
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
               <div>
-                <label htmlFor="firstName"
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "0.82rem",
-                    color: "#9ca3af",
-                    display: "block",
-                    marginBottom: 8,
-                    fontWeight: 500,
-                  }}
-                >
+                <label htmlFor="firstName" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: "#9ca3af", display: "block", marginBottom: 8, fontWeight: 500 }}>
                   {t("contact.first_name")}
                 </label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  placeholder={t("contact.first_placeholder")}
-                  defaultValue=""
-                  style={{ padding: "12px 16px", borderRadius: 10 }}
-                />
-                {state.errors?.firstName && (
-                  <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.firstName}</p>
-                )}
+                <input id="firstName" name="firstName" placeholder={t("contact.first_placeholder")} defaultValue="" style={{ padding: "12px 16px", borderRadius: 10, width: "100%" }} />
+                {state.errors?.firstName && <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.firstName}</p>}
               </div>
               <div>
-                <label htmlFor="lastName"
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "0.82rem",
-                    color: "#9ca3af",
-                    display: "block",
-                    marginBottom: 8,
-                    fontWeight: 500,
-                  }}
-                >
+                <label htmlFor="lastName" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: "#9ca3af", display: "block", marginBottom: 8, fontWeight: 500 }}>
                   {t("contact.last_name")}
                 </label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  placeholder={t("contact.last_placeholder")}
-                  defaultValue=""
-                  style={{ padding: "12px 16px", borderRadius: 10 }}
-                />
-                {state.errors?.lastName && (
-                  <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.lastName}</p>
-                )}
+                <input id="lastName" name="lastName" placeholder={t("contact.last_placeholder")} defaultValue="" style={{ padding: "12px 16px", borderRadius: 10, width: "100%" }} />
+                {state.errors?.lastName && <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.lastName}</p>}
               </div>
             </div>
 
             <div style={{ marginBottom: 20 }}>
-              <label htmlFor="email"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "0.82rem",
-                  color: "#9ca3af",
-                  display: "block",
-                  marginBottom: 8,
-                  fontWeight: 500,
-                }}
-              >
+              <label htmlFor="email" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: "#9ca3af", display: "block", marginBottom: 8, fontWeight: 500 }}>
                 {t("contact.email")}
               </label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder={t("contact.email_placeholder")}
-                defaultValue=""
-                style={{ padding: "12px 16px", borderRadius: 10 }}
-              />
-              {state.errors?.email && (
-                <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.email}</p>
-              )}
+              <input id="email" type="email" name="email" placeholder={t("contact.email_placeholder")} defaultValue="" style={{ padding: "12px 16px", borderRadius: 10, width: "100%" }} />
+              {state.errors?.email && <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.email}</p>}
             </div>
 
             <div style={{ marginBottom: 20 }}>
-              <label
-                htmlFor="service"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "0.82rem",
-                  color: "#9ca3af",
-                  display: "block",
-                  marginBottom: 8,
-                  fontWeight: 500,
-                }}
-              >
+              <label htmlFor="service" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: "#9ca3af", display: "block", marginBottom: 8, fontWeight: 500 }}>
                 {t("contact.service")}
               </label>
-              <select id="service" name="service" defaultValue="" style={{ padding: "12px 16px", borderRadius: 10 }}>
-                <option value="" disabled style={{ background: "#050810" }}>
-                  {t("contact.service_placeholder")}
-                </option>
+              <select id="service" name="service" defaultValue="" style={{ padding: "12px 16px", borderRadius: 10, width: "100%" }}>
+                <option value="" disabled style={{ background: "#050810" }}>{t("contact.service_placeholder")}</option>
                 {[
                   { val: "Web Development", key: "service_web" },
                   { val: "Frontend Development", key: "service_frontend" },
@@ -227,27 +173,14 @@ export default function Contact() {
                   { val: "Web Performance & SEO", key: "service_perf" },
                   { val: "Other", key: "service_other" },
                 ].map(({ val, key }) => (
-                  <option key={key} value={val} style={{ background: "#050810" }}>
-                    {t(`contact.${key}`)}
-                  </option>
+                  <option key={key} value={val} style={{ background: "#050810" }}>{t(`contact.${key}`)}</option>
                 ))}
               </select>
-              {state.errors?.service && (
-                <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.service}</p>
-              )}
+              {state.errors?.service && <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.service}</p>}
             </div>
 
             <div style={{ marginBottom: 28 }}>
-              <label htmlFor="message"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "0.82rem",
-                  color: "#9ca3af",
-                  display: "block",
-                  marginBottom: 8,
-                  fontWeight: 500,
-                }}
-              >
+              <label htmlFor="message" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: "#9ca3af", display: "block", marginBottom: 8, fontWeight: 500 }}>
                 {t("contact.message")}
               </label>
               <textarea
@@ -257,22 +190,13 @@ export default function Contact() {
                 rows={5}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                style={{ padding: "12px 16px", borderRadius: 10, resize: "vertical" }}
+                style={{ padding: "12px 16px", borderRadius: 10, resize: "vertical", width: "100%" }}
               />
-              {state.errors?.message && (
-                <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.message}</p>
-              )}
+              {state.errors?.message && <p style={{ color: "#ef4444", fontSize: "0.78rem", marginTop: 4 }}>{state.errors.message}</p>}
             </div>
 
             {state.message && (
-              <p
-                style={{
-                  textAlign: "center",
-                  fontSize: "0.88rem",
-                  marginBottom: 16,
-                  color: state.success ? "#10b981" : "#ef4444",
-                }}
-              >
+              <p style={{ textAlign: "center", fontSize: "0.88rem", marginBottom: 16, color: state.success ? "#10b981" : "#ef4444" }}>
                 {state.message}
               </p>
             )}
@@ -288,20 +212,13 @@ export default function Contact() {
                 borderRadius: 12,
                 fontSize: "1rem",
                 opacity: pending ? 0.7 : 1,
+                cursor: pending ? "not-allowed" : "pointer"
               }}
             >
               {pending ? t("contact.sending") : t("contact.submit")}
             </button>
 
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                textAlign: "center",
-                color: "#9ca3af",
-                fontSize: "0.8rem",
-                marginTop: 16,
-              }}
-            >
+            <p style={{ fontFamily: "'DM Sans', sans-serif", textAlign: "center", color: "#9ca3af", fontSize: "0.8rem", marginTop: 16 }}>
               {t("contact.footer_note")}
             </p>
           </form>

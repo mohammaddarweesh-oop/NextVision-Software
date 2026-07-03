@@ -255,6 +255,9 @@ export default function Hero() {
               }}
             >
               <span style={{ fontSize: "4rem", fontWeight: 800, color: "#fff" }}>NV</span>
+              {/* <span style={{ fontSize: "4rem", fontWeight: 800, color: "#fff" }}>
+                <img src="/NextVisionlogo.png" alt="" width={92} height={84} style={{ height: 180, width: "auto" }} />
+              </span> */}
             </div>
             {[
               { style: { top: "5%", left: "-10%" }, icon: "\u26A1", key: "fast" },
