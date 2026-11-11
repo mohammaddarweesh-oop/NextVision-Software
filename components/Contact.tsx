@@ -14,14 +14,28 @@ export default function Contact() {
 
   useEffect(() => {
     const handler = (e: Event) => {
-      setMessage((e as CustomEvent).detail as string);
+      const detail = (e as CustomEvent).detail as string;
+      if (detail) {
+        setMessage(detail);
+      }
     };
     window.addEventListener("selectPackage", handler);
+
+    try {
+      const saved = sessionStorage.getItem("nv_selected_package");
+      if (saved) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setMessage(saved);
+        sessionStorage.removeItem("nv_selected_package");
+      }
+    } catch {}
+
     return () => window.removeEventListener("selectPackage", handler);
   }, []);
 
   useEffect(() => {
     if (state.success) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMessage("");
       formRef.current?.reset();
     }

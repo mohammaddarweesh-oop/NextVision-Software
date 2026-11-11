@@ -1,51 +1,15 @@
 "use client";
 
-const TESTIMONIALS = [
-  {
-    name: "Sarah Al-Rashid",
-    role: "CEO, TechFlow UAE",
-    quote:
-      "NextVision transformed our outdated platform into a world-class product in just 10 weeks. Their attention to detail and proactive communication set them apart.",
-    avatar: "SR",
-  },
-  {
-    name: "Ahmed Mansour",
-    role: "CTO, FinBridge",
-    quote:
-      "The team delivered a complex fintech app with zero critical bugs on launch day. Their expertise in security and performance is genuinely world-class.",
-    avatar: "AM",
-  },
-  {
-    name: "Layla Hassan",
-    role: "Founder, EduNova",
-    quote:
-      "Working with NextVision felt like having an in-house team that actually cared. They challenged our assumptions and pushed us toward a far better product.",
-    avatar: "LH",
-  },
-  {
-    name: "Omar Khalil",
-    role: "Product Director, RetailX",
-    quote:
-      "From discovery to deployment, the process was seamless. They delivered on time, on budget, and the results exceeded all our KPIs within the first month.",
-    avatar: "OK",
-  },
-  {
-    name: "Nora Al-Sayed",
-    role: "VP Engineering, CloudBase",
-    quote:
-      "NextVision is the rare agency that combines technical excellence with real business understanding. Highly recommended for any serious product.",
-    avatar: "NA",
-  },
-  {
-    name: "Khalid Ibrahim",
-    role: "Co-founder, LogiTrack",
-    quote:
-      "The mobile app they built scaled from 0 to 50,000 users without a single performance issue. Their cloud architecture expertise saved us months.",
-    avatar: "KI",
-  },
-];
-
 import { useTranslation } from "@/lib/i18n";
+
+const TESTIMONIAL_KEYS = [
+  { id: "t1", avatar: "SR" },
+  { id: "t2", avatar: "AM" },
+  { id: "t3", avatar: "LH" },
+  { id: "t4", avatar: "OK" },
+  { id: "t5", avatar: "NA" },
+  { id: "t6", avatar: "KI" },
+];
 
 export default function Testimonials() {
   const { t } = useTranslation();
@@ -86,9 +50,9 @@ export default function Testimonials() {
           </h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24 }}>
-          {TESTIMONIALS.map(({ name, role, quote, avatar }) => (
+          {TESTIMONIAL_KEYS.map(({ id, avatar }) => (
             <div
-              key={name}
+              key={id}
               className="card-hover"
               style={{
                 background: "rgba(255,255,255,0.02)",
@@ -114,7 +78,7 @@ export default function Testimonials() {
                   fontStyle: "italic",
                 }}
               >
-                &ldquo;{quote}&rdquo;
+                &ldquo;{t(`testimonials.${id}_quote`)}&rdquo;
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 <div
@@ -135,16 +99,16 @@ export default function Testimonials() {
                   {avatar}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>{name}</div>
+                  <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>{t(`testimonials.${id}_name`)}</div>
                   <div
                     style={{
                       fontFamily: "'DM Sans', sans-serif",
-                      color: "#9ca3af",
+                      color: "#6b7280",
                       fontSize: "0.82rem",
                       marginTop: 2,
                     }}
                   >
-                    {role}
+                    {t(`testimonials.${id}_role`)}
                   </div>
                 </div>
               </div>

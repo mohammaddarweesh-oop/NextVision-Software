@@ -6,9 +6,11 @@ import { useTranslation } from "@/lib/i18n";
 const FOOTER_LINKS = [
   { id: "about" },
   { id: "services" },
+  { id: "process" },
+  { id: "casestudy" },
   { id: "techstack" },
   { id: "packages" },
-  { id: "faq" },
+  { id: "founder" },
   { id: "testimonials" },
   { id: "contact" },
 ];

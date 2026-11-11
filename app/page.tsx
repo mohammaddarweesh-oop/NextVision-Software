@@ -5,8 +5,11 @@ import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 const About = dynamic(() => import("@/components/About"), { ssr: true });
 const Services = dynamic(() => import("@/components/Services"), { ssr: true });
+const Process = dynamic(() => import("@/components/Process"), { ssr: true });
+const CaseStudy = dynamic(() => import("@/components/CaseStudy"), { ssr: true });
 const TechStack = dynamic(() => import("@/components/TechStack"), { ssr: true });
 const Packages = dynamic(() => import("@/components/Packages"), { ssr: true });
+const Founder = dynamic(() => import("@/components/Founder"), { ssr: true });
 const FAQ = dynamic(() => import("@/components/FAQ"), { ssr: true });
 const Testimonials = dynamic(() => import("@/components/Testimonials"), { ssr: true });
 const Contact = dynamic(() => import("@/components/Contact"), { ssr: true });
@@ -19,8 +22,11 @@ export default function Home() {
       <Hero />
       <AnimateOnScroll><About /></AnimateOnScroll>
       <AnimateOnScroll><Services /></AnimateOnScroll>
+      <AnimateOnScroll><Process /></AnimateOnScroll>
+      <AnimateOnScroll><CaseStudy /></AnimateOnScroll>
       <AnimateOnScroll><TechStack /></AnimateOnScroll>
       <AnimateOnScroll><Packages /></AnimateOnScroll>
+      <AnimateOnScroll><Founder /></AnimateOnScroll>
       <AnimateOnScroll><FAQ /></AnimateOnScroll>
       <AnimateOnScroll><Testimonials /></AnimateOnScroll>
       <AnimateOnScroll><Contact /></AnimateOnScroll>

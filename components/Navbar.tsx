@@ -8,11 +8,25 @@ import { useTranslation } from "@/lib/i18n";
 const NAV_ITEMS = [
   { id: "about" },
   { id: "services" },
-  { id: "techstack" },
+  { id: "process" },
+  { id: "casestudy" },
   { id: "packages" },
-  { id: "faq" },
-  { id: "testimonials" },
+  { id: "founder" },
   { id: "contact" },
+];
+
+const TRACKED_SECTIONS = [
+  "hero",
+  "about",
+  "services",
+  "process",
+  "casestudy",
+  "techstack",
+  "packages",
+  "founder",
+  "faq",
+  "testimonials",
+  "contact",
 ];
 
 export default function Navbar() {
@@ -24,8 +38,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      const sectionIds = ["hero", ...NAV_ITEMS.map((i) => i.id)];
-      for (const id of sectionIds) {
+      for (const id of TRACKED_SECTIONS) {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
